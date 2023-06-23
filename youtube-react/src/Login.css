@@ -1,0 +1,15 @@
+.login-input{
+    margin-right:10px;
+    margin-top: 10px;
+    outline: none;
+    padding: 10px;
+    border-color: antiquewhite;
+    border-radius: 10px;
+}
+.login {
+    margin: 20px;
+}
+
+.server-alert{
+    margin: 5px;
+}

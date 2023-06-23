@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This is the backend server",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run server",
+    "test": "npm run server"
+  },
+  "author": "MrMalluProgrammer",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongodb": "^5.6.0",
+    "mongoose": "^7.3.1"
+  }
+}
