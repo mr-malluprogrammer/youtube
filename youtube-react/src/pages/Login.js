@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Login.css'
+import '../css/Login.css'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -9,7 +9,7 @@ function Login() {
     // creating new use state
     const [message, setMessage] = useState('')
     const [ss, setSS] = useState(false)
-    const [userCredentials, setUserCredentials] = useState({ name: '', password: '' })
+    const [userCredentials, setUserCredentials] = useState({ username: '', password: '' })
 
 
     const ButtonClick = (e) => {
@@ -51,10 +51,10 @@ function Login() {
 
             <form onSubmit={ButtonClick}>
                 <div className='login'>
-                    <h1>Login</h1>
+                    <h1>Log In</h1>
                     <div>
-                        <input className='login-input' onChange={(e) => setUserCredentials({ name: e.target.value, password: userCredentials.password })} id='login-username' type='text' placeholder="Username" required />
-                        <input className='login-input' onChange={(e) => setUserCredentials({ name: userCredentials.name, password: e.target.value })} type='password' placeholder="Password" required />
+                        <input className='login-input' onChange={(e) => setUserCredentials({ username: e.target.value, password: userCredentials.password })} id='login-username' type='text' placeholder="Username" required />
+                        <input className='login-input' onChange={(e) => setUserCredentials({ username: userCredentials.username, password: e.target.value })} type='password' placeholder="Password" required />
                         <br />
                         <Button
                             variant="primary"
