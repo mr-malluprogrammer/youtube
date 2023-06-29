@@ -1,10 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Passion+One:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700&display=swap');
 
 .App {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     min-height: 100vh;
-    background-color: rgb(0, 0, 0);
     font-family: 'Passion One', cursive;
+    background-color: rgb(0, 0, 0);
 }
