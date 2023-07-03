@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700&display=swap');
 
 .App {
-    min-height: 100vh;
+    
     font-family: 'Passion One', cursive;
-    background-color: rgb(0, 0, 0);
+    background-color: black;
 }
