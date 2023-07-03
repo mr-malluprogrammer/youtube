@@ -3,7 +3,9 @@
     align-items: center;
     min-height: 100vh;
     justify-content: center;
+    background-color: black;
 }
+
 .fadeIn {
     animation: fadeIn 3s;
     -webkit-animation: fadeIn 3s;
