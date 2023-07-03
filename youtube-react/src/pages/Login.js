@@ -52,13 +52,13 @@ function Login() {
                             token: data.token,
                             expiresIn: 60,
                             tokenType: "Bearer",
-                            authState: {username: data.username}
+                            authState: { username: data.username }
                         })
                         setSS(false)
                     })
                     .catch((err) => {
                         setMessage("Sorry error connecting the server")
-                        setData({status:false})
+                        setData({ status: false })
                         setSS(false)
                     })
 
@@ -77,15 +77,18 @@ function Login() {
                 {/* <div className='server-alert'>  
                     
                 </div> */}
-                <Form noValidate validated={validated} onSubmit={ButtonClick}>
-                    <h1>Welcome Back {data.status && (data.name)}!</h1>
+                <Form noValidate className='fadeIn' validated={validated} onSubmit={ButtonClick}>
+                    <h1 style={{ fontSize: '50px' }}>Welcome Back{data.status && (' ' + data.name)}!</h1>
                     <Row className="mb-4">
 
-
-                        <Form.Group as={Col} controlId="validationCustomUsername">
+                        <Form.Group as={Col} md="6" controlId="validationFormikUsername">
                             <Form.Label>Username</Form.Label>
                             <InputGroup hasValidation>
-                                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                                <InputGroup.Text id="inputGroupPrepend">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16">
+                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                    </svg>
+                                </InputGroup.Text>
                                 <Form.Control
                                     type="text"
                                     placeholder="Username"
@@ -98,6 +101,8 @@ function Login() {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
+
+
 
                         <Form.Group as={Col} controlId="validationCustom04">
                             <Form.Label>Password</Form.Label>
@@ -112,17 +117,20 @@ function Login() {
                         </Form.Group>
                     </Row>
                     {data.status === true ? (
-                        <Link to='/' style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="black" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
-                    </svg></Link>
-                    ) : ( <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Button type="submit" variant='dark' disabled={ss}>Log In</Button>
-                    <div style={{ display: 'flex', flex: '1', justifyContent: 'flex-end' }}>
-                        <Link to='/signup' >Create an account.</Link>
-                    </div>
-                </div>)}
-                   
+                        <Link to='/' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="black" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                            </svg></Link>
+                    ) : (<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Button type="submit" variant='dark' disabled={ss}>Log In</Button>
+                        <div style={{ display: 'flex', flex: '1', justifyContent: 'flex-end' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <Link to='/signup'>Create an account</Link>
+                                <Link to='/forgotpassword'>Forogt password</Link>
+                            </div>
+                        </div>
+                    </div>)}
+
 
                     <div>
                         {ss && (<div className="text-center">
@@ -132,7 +140,7 @@ function Login() {
                         </div>)}
                         {data.status === false ? (
                             <div style={{ marginTop: '10px' }}>
-                                <Alert variant={`${message === "Sorry error connecting the server" ? "danger" :"warning"}`} >
+                                <Alert variant={`${message === "Sorry error connecting the server" ? "danger" : "warning"}`} >
                                     <Alert.Heading>
                                         <div>
                                             <svg style={{ marginBottom: '5px', marginRight: '10px' }} xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-exclamation-triangle" viewBox="0 0 16 16">
