@@ -103,4 +103,93 @@ app.post('/emailValidation', (req, res) => {
         })
 }) 
 
+app.post('/sendEmail', (req, res) => {
+    const {email, name} = req.body
+    console.log("Email - ", email)
+    console.log("First Name - ", name)
+    var val = Math.floor(1000 + Math.random() * 9000)
+    if(tempStore.email === email){
+        tempStore.code = val
+    }
+    else {
+        tempStore.email = email
+        tempStore.code = val
+    }
+
+    const nodemailer = require('nodemailer')
+    const trasporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'mrmalluprogrammer@gmail.com',
+            pass: process.env.EMAIL_PASS
+        }
+    })
+
+    const mailConfigure = {
+        from: 'mrmalluprogrammer@gmail.com',
+        to: email,
+        subject: 'Mr. Mallu Programmer Pin Code : '+val,
+        html: `<html>
+        <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700&display=swap" rel="stylesheet">
+        </head>
+        <style>
+          
+            body {
+                background-color: antiquewhite;
+                align-items: center;
+                text-align: center;
+                justify-content: center;
+                display: grid;
+                
+            }
+        
+            .card {
+                /* Add shadows to create the "card" effect */
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                transition: 0.3s;
+                background-color: aliceblue;
+            }
+        
+            footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                padding: 10px;
+                width: 100%;
+                background-color: rgb(0, 0, 0);
+                color: white;
+                text-align: center;
+            }
+        </style>
+        
+        <body style="font-family: cursive;">
+        <center>
+            <div class="card"
+                style="display: grid; align-items: center; justify-content: center; width: 650px; height: 550px;">
+                <h1>${name ? ('Hey ' + name) : ('Hello')}, Thanks for creating an account with us</h1>
+                <p>Verify your account</p>
+                <span style="font-size: 100px;">${val}</span>
+                <p>This code is active for only 5 minutes</p>
+            </div>
+        
+            </center>
+        
+        </body>
+        <footer>Copyright © 2012 - 2023 Mr. Mallu Programmer®. All rights reserved.</footer>
+        
+        </html>`
+    }
+
+    trasporter.sendMail(mailConfigure, function(error, info){
+        if (error) throw error
+        res.send({"message": "Email Sent Successfully!"})
+        console.log(info)
+    })
+
+    setTimeout(function () { tempStore = { email: '', code: ''}; console.log("Ran 5 min check!");}, 300000)
+})
+
 app.listen(5000)

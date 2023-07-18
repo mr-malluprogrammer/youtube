@@ -10,13 +10,16 @@ import * as yup from 'yup';
 import { Link } from 'react-router-dom'
 import '../css/SignUp.css'
 import Alert from 'react-bootstrap/Alert';
+import TC from './TC';
 
 
 function SignUp() {
   const { Formik } = formik;
   const [check, setCheck] = useState(false)
   const [cError, setCError] = useState('')
-
+  const [show, setShow] = useState(false)
+  const [dataGot, setDataGot] = useState({})
+  const [sendTrigger, setSendTrigger] = useState(false)
 
   const UserForm = yup.object().shape(
     {
@@ -30,7 +33,7 @@ function SignUp() {
           setCheck(true)
           setCError('')
           return new Promise((resolve, reject) => {
-            fetch("http://192.168.1.16:5000/emailValidation", {
+            fetch("http://localhost:5000/emailValidation", {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +67,7 @@ function SignUp() {
         .test("Username is valid", "Username already in use!", function (value) {
           setCheck(true)
           return new Promise((resolve, reject) => {
-            fetch("http://192.168.1.16:5000/usernameValidation", {
+            fetch("http://localhost:5000/usernameValidation", {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -93,6 +96,36 @@ function SignUp() {
   );
 
 
+  const handleShow = () => {
+    setShow(true)
+  }
+
+  const sendMail = (e) =>{
+    setSendTrigger(true)
+
+    try{
+      fetch("http://localhost:5000/sendEmail", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: e.email,
+          name: e.firstName
+        })
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+      })
+    }
+
+    catch{
+
+    }
+
+  }
+
   return (
     <div className='signUp'>
       <Card style={{ padding: '30px', width: '850px', minHeight: '450px' }}>
@@ -102,7 +135,7 @@ function SignUp() {
 
           <Formik
             validationSchema={UserForm}
-            onSubmit={(e) => { console.log(e) }}
+            onSubmit={(e) => { setDataGot(e); sendMail(e);  }}
             validateOnChange={false}
             initialValues={{
               firstName: '',
@@ -258,7 +291,7 @@ function SignUp() {
                   <Form.Check
                     required
                     name="terms"
-                    label="Agree to terms and conditions"
+                    label={(<span onClick={handleShow}>Agree to terms and conditions.</span>)}
                     onChange={handleChange}
                     isInvalid={!!errors.terms}
                     isValid={touched.terms && !errors.terms && !check}
@@ -293,9 +326,9 @@ function SignUp() {
           </div>
         ) : (console.log())}
 
-
-
       </Card>
+
+     { show  &&(<TC show={show} setShow={setShow} />)}
     </div>
   )
 }
